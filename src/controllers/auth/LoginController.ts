@@ -5,11 +5,11 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../services/TokenServices";
-import { UserRequestHandler } from "../../types/Request";
 import redis from "../../lib/redis";
 import CONFIG from "../../constants/config";
+import { RequestHandler } from "express";
 
-export const LoginController: UserRequestHandler = async (req, res) => {
+export const LoginController: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {

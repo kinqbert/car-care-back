@@ -1,11 +1,11 @@
+import { RequestHandler } from "express";
 import CONFIG from "../../constants/config";
 import redis from "../../lib/redis";
 import ResponseService from "../../services/ResponseService";
 import { generateAccessToken } from "../../services/TokenServices";
-import { UserRequestHandler } from "../../types/Request";
 import jwt from "jsonwebtoken";
 
-export const TokenController: UserRequestHandler = async (req, res) => {
+export const TokenController: RequestHandler = async (req, res) => {
   const refreshToken = req.body.refreshToken;
 
   const userId = await redis.get(refreshToken);
