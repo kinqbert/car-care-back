@@ -10,7 +10,6 @@ export async function connectPostgres() {
   try {
     await sequelize.authenticate();
     await sequelize.sync({ alter: true });
-    console.log("Connected to PostgreSQL");
   } catch (error) {
     console.error("Unable to connect to PostgreSQL:", error);
   }

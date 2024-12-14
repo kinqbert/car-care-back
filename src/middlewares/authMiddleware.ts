@@ -1,20 +1,23 @@
-import { NextFunction, Request, Response } from "express";
-import { verifyToken } from "../services/TokenServices";
+import { Request, Response } from "express";
+import { verifyAccessToken } from "../services/TokenServices";
 import ResponseService from "../services/ResponseService";
+import { UserRequest } from "../types/Request";
 
-export function authenticateRequest(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export function authMiddleware(req: Request, res: Response, next: any) {
   if (req.method === "OPTIONS") {
     return next();
   }
 
+  if (
+    req.originalUrl.includes("login") ||
+    req.originalUrl.includes("register") ||
+    req.originalUrl.includes("token")
+  ) {
+    return next();
+  }
+
   if (!req.headers["authorization"]) {
-    return ResponseService.success(res, {
-      message: "Authorization token required.",
-    });
+    return ResponseService.error(res, "Authorization token required.", 401);
   }
 
   const authHeader = req.headers["authorization"] as string;
@@ -25,7 +28,8 @@ export function authenticateRequest(
   const token = authHeader.split(" ")[1];
 
   try {
-    verifyToken(token);
+    const { id } = verifyAccessToken(token) as { id: string };
+    (req as UserRequest).userId = id;
     next();
   } catch (error) {
     return ResponseService.error(res, "Invalid token. Please login.", 401);

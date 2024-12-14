@@ -1,6 +1,7 @@
-export const API_ROUTES = {
+export const ROUTES = {
   AUTH: {
+    REGISTER: "/api/auth/register",
     LOGIN: "/api/auth/login",
-    REGISTER: "/register",
+    TOKEN: "/api/auth/token",
   },
 };

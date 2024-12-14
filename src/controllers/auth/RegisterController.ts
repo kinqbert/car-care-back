@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
-import { createUser } from "../../services/UserServices";
 import ResponseService from "../../services/ResponseService";
+import User from "../../models/UserModel";
+import { hashPassword } from "../../services/UserServices";
 
 export const RegisterController: RequestHandler = async (req, res) => {
   const { email, password } = req.body;
@@ -10,7 +11,20 @@ export const RegisterController: RequestHandler = async (req, res) => {
     return;
   }
 
-  const user = await createUser(email, password);
+  const userExists = !!(await User.findOne({ where: { email } }));
 
-  ResponseService.success(res, user);
+  if (userExists) {
+    ResponseService.error(res, "User with such email already exists.", 400);
+    return;
+  }
+
+  const encryptedPassword = await hashPassword(password);
+
+  const user = await User.create({ email, password: encryptedPassword });
+
+  ResponseService.success(
+    res,
+    { message: "User registered successfully!", user: { email } },
+    200
+  );
 };

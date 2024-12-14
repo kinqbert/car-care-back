@@ -3,8 +3,10 @@ import Joi from "joi";
 
 interface Config {
   PORT: number;
-  JWT_SECRET: string;
-  JWT_EXPIRES_IN: string;
+  REFRESH_TOKEN_SECRET: string;
+  ACCESS_TOKEN_SECRET: string;
+  REFRESH_TOKEN_LIFESPAN_SECONDS: number;
+  ACCESS_TOKEN_LIFESPAN: string;
   REDIS_URL: string;
   POSTGRES_URL: string;
   MONGO_DB_URI: string;
@@ -12,8 +14,10 @@ interface Config {
 
 const configSchema = Joi.object<Config>({
   PORT: Joi.number().default(5050),
-  JWT_SECRET: Joi.string().required(),
-  JWT_EXPIRES_IN: Joi.string().required(),
+  REFRESH_TOKEN_SECRET: Joi.string().required(),
+  ACCESS_TOKEN_SECRET: Joi.string().required(),
+  REFRESH_TOKEN_LIFESPAN_SECONDS: Joi.number().required(),
+  ACCESS_TOKEN_LIFESPAN: Joi.string().required(),
   REDIS_URL: Joi.string().required(),
   POSTGRES_URL: Joi.string().required(),
   MONGO_DB_URI: Joi.string().required(),

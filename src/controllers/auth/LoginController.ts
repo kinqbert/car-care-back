@@ -1,10 +1,15 @@
-import { RequestHandler } from "express";
-import { comparePassword, createUser } from "../../services/UserServices";
+import { comparePassword } from "../../services/UserServices";
 import User from "../../models/UserModel";
-import { generateToken } from "../../services/TokenServices";
 import ResponseService from "../../services/ResponseService";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../../services/TokenServices";
+import { UserRequestHandler } from "../../types/Request";
+import redis from "../../lib/redis";
+import CONFIG from "../../constants/config";
 
-export const LoginController: RequestHandler = async (req, res) => {
+export const LoginController: UserRequestHandler = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -23,13 +28,23 @@ export const LoginController: RequestHandler = async (req, res) => {
     const isValidPassword = await comparePassword(password, user.password);
 
     if (!isValidPassword) {
-      res.status(400).json({ message: "Invalid email or password." });
+      res.status(403).json({ message: "Invalid email or password." });
       return;
     }
 
-    const token = generateToken({ id: user.id, email: user.email });
+    const refreshToken = generateRefreshToken({ id: user.id });
+    const accessToken = generateAccessToken({ id: user.id });
 
-    ResponseService.success(res, { token });
+    const id = user.id.toString();
+
+    await redis.set(
+      refreshToken,
+      id,
+      "EX",
+      CONFIG.REFRESH_TOKEN_LIFESPAN_SECONDS
+    );
+
+    ResponseService.success(res, { refreshToken, accessToken });
   } catch {
     ResponseService.error(res, "Internal server error.", 500);
   }
