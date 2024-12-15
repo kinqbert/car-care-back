@@ -7,6 +7,7 @@ export const ROUTES = {
   CARS: {
     GET_ALL: "/api/cars",
     GET_USER_CARS: "/api/user_cars",
+    GET_CAR_BY_ID: "/api/cars/:id",
     PURCHASE: "/api/:id/purchase",
     SELL: "/api/:id/sell",
     CANCEL_SELL: "/api/:id/cancel_sell",
@@ -18,5 +19,8 @@ export const ROUTES = {
     GET_USERS: "/api/users",
     CHECK_EMAIL: "/api/check_email",
     UPDATE: "/api/user/update",
+  },
+  REPAIRS: {
+    CREATE: "/api/repairs/create",
   },
 };
