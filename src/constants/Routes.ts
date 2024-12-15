@@ -11,10 +11,12 @@ export const ROUTES = {
     SELL: "/api/:id/sell",
     CANCEL_SELL: "/api/:id/cancel_sell",
     REPAIR: "/api/:id/repair",
+    CREATE: "/api/cars/create",
   },
   USER: {
     GET_USER: "/api/user",
     GET_USERS: "/api/users",
     CHECK_EMAIL: "/api/check_email",
+    UPDATE: "/api/user/update",
   },
 };
