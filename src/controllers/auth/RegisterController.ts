@@ -4,7 +4,7 @@ import User from "../../models/UserModel";
 import { hashPassword } from "../../services/UserServices";
 
 export const RegisterController: RequestHandler = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name, surname, licenseNumber, avatarUrl } = req.body;
 
   if (!email || !password) {
     ResponseService.error(res, "Email and password are required.", 400);
@@ -20,11 +20,18 @@ export const RegisterController: RequestHandler = async (req, res) => {
 
   const encryptedPassword = await hashPassword(password);
 
-  const user = await User.create({ email, password: encryptedPassword });
+  const userAvatar =
+    avatarUrl ||
+    "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
-  ResponseService.success(
-    res,
-    { message: "User registered successfully!", user: { email } },
-    200
-  );
+  const user = await User.create({
+    email,
+    name,
+    surname,
+    licenseNumber,
+    avatarUrl: userAvatar,
+    password: encryptedPassword,
+  });
+
+  ResponseService.success(res, user, 200);
 };

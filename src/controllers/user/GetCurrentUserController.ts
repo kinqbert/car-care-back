@@ -6,13 +6,12 @@ import { getCarsOwnedByUser, getUserSells } from "../../services/UserServices";
 
 export const GetCurrentUserController: RequestHandler = async (req, res) => {
   const userId = (req as UserRequest).userId;
-  const user = await User.findOne({ where: { id: userId } });
+  const user = await User.findOne({ where: { id: userId }, raw: true });
   const carsOwnedByUser = await getCarsOwnedByUser(userId);
   const userSells = await getUserSells(userId);
 
   ResponseService.success(res, {
-    id: user?.id || "",
-    email: user?.email || "",
+    ...user,
     vehiclesOwned: carsOwnedByUser,
     vehiclesSold: userSells,
   });

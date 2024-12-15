@@ -7,7 +7,7 @@ import { UserRequest } from "../../types/Request";
 export const GetAllCarsController: RequestHandler = async (req, res) => {
   const userId = (req as UserRequest).userId;
 
-  const users = await User.findAll();
+  const users = await User.findAll({ raw: true });
   const cars = await CarModel.find({
     ownerId: { $not: { $eq: userId } },
     isPurchaseAvailable: true,
@@ -18,8 +18,7 @@ export const GetAllCarsController: RequestHandler = async (req, res) => {
     return {
       ...car,
       owner: {
-        id: user?.id,
-        email: user?.email,
+        ...user,
       },
     };
   });

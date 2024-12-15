@@ -11,7 +11,8 @@ export function authMiddleware(req: Request, res: Response, next: any) {
   if (
     req.originalUrl.includes("login") ||
     req.originalUrl.includes("register") ||
-    req.originalUrl.includes("token")
+    req.originalUrl.includes("token") ||
+    req.originalUrl.includes("check_email")
   ) {
     return next();
   }

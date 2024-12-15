@@ -14,17 +14,6 @@ export async function comparePassword(
   return bcrypt.compare(password, hashedPassword);
 }
 
-export const createUser = async (email: string, password: string) => {
-  const hashedPassword = await hashPassword(password);
-
-  try {
-    const user = await User.create({ email, password: hashedPassword });
-    return user;
-  } catch (error) {
-    throw new Error("Error creating user.");
-  }
-};
-
 export const getCarsOwnedByUser = async (userId: string) => {
   return await CarModel.find({ ownerId: userId }).countDocuments();
 };

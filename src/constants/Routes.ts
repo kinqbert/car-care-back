@@ -14,5 +14,7 @@ export const ROUTES = {
   },
   USER: {
     GET_USER: "/api/user",
+    GET_USERS: "/api/users",
+    CHECK_EMAIL: "/api/check_email",
   },
 };
