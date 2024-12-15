@@ -23,4 +23,7 @@ export const ROUTES = {
   REPAIRS: {
     CREATE: "/api/repairs/create",
   },
+  TRANSACTIONS: {
+    GET_ALL_TRASACTIONS: "/api/transactions",
+  },
 };

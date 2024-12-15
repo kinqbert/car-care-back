@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/UserModel";
 import CarModel from "../models/CarModel";
-import CarSaleModel from "../models/CarSaleModel";
+import TransactionModel from "../models/TransactionModel";
 
 export const hashPassword = async (password: string): Promise<string> => {
   return bcrypt.hash(password, 10);
@@ -19,5 +19,5 @@ export const getCarsOwnedByUser = async (userId: string) => {
 };
 
 export const getUserSells = async (userId: string) => {
-  return await CarSaleModel.find({ sellerId: userId }).countDocuments();
+  return await TransactionModel.find({ seller: userId }).countDocuments();
 };

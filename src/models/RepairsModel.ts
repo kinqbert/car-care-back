@@ -2,14 +2,14 @@ import mongoose, { Schema } from "mongoose";
 import { RepairSeverity } from "../enums/RepairSeverity";
 
 export interface IRepair {
-  carId: string;
+  car: string;
   shortDescription: string;
   description: string;
   severity: RepairSeverity;
 }
 
 const RepairSchema = new Schema<IRepair>({
-  carId: {
+  car: {
     type: String,
     required: true,
     ref: "Car",

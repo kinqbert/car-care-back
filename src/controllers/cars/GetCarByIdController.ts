@@ -16,7 +16,7 @@ export const GetCarByIdController: RequestHandler = async (req, res) => {
   }
 
   const owner = await User.findByPk(car.ownerId, { raw: true });
-  const repairs = await RepairModel.find({ carId });
+  const repairs = await RepairModel.find({ car: carId });
 
   const populatedCar = {
     ...car.toObject(),

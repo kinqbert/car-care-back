@@ -16,7 +16,7 @@ export const CancelSellCarController: RequestHandler = async (req, res) => {
   car.isPurchaseAvailable = false;
 
   const updatedCar = await car.save();
-  const repairs = await RepairModel.find({ carId: carId });
+  const repairs = await RepairModel.find({ car: carId });
 
   const populatedCar = {
     ...updatedCar.toObject(),

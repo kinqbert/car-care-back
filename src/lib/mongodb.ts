@@ -57,19 +57,19 @@ const initialCarData: ICar[] = [
 
 const initialRepairData: IRepair[] = [
   {
-    carId: "1",
+    car: "1",
     shortDescription: "Engine repair",
     description: "Engine repair due to overheating.",
     severity: RepairSeverity.HIGH,
   },
   {
-    carId: "2",
+    car: "2",
     shortDescription: "Brake repair",
     description: "Brake repair due to wear and tear.",
     severity: RepairSeverity.HIGH,
   },
   {
-    carId: "3",
+    car: "3",
     shortDescription: "Oil change",
     description: "Oil change due to oil leakage.",
     severity: RepairSeverity.MEDIUM,
@@ -98,7 +98,7 @@ const uploadInitialCarData = async () => {
 
       await Promise.allSettled(
         initialRepairData.map(async (repair) => {
-          if (repair.carId !== newCar._id.toString()) {
+          if (repair.car !== newCar._id.toString()) {
             return;
           }
         })

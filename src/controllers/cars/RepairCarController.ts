@@ -13,7 +13,7 @@ export const RepairCarController: RequestHandler = async (req, res) => {
     return;
   }
 
-  await RepairModel.deleteMany({ carId });
+  await RepairModel.deleteMany({ car: carId });
 
   const updatedCar = {
     ...car.toObject(),

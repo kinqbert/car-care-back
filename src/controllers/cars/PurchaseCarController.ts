@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import ResponseService from "../../services/ResponseService";
 import { UserRequest } from "../../types/Request";
 import CarModel from "../../models/CarModel";
-import CarSaleModel from "../../models/CarSaleModel";
+import TransactionModel from "../../models/TransactionModel";
 
 export const PurchaseCarController: RequestHandler = async (req, res) => {
   const userId = (req as UserRequest).userId;
@@ -15,10 +15,10 @@ export const PurchaseCarController: RequestHandler = async (req, res) => {
     return;
   }
 
-  await CarSaleModel.create({
-    carId,
-    sellerId: car.ownerId,
-    buyerId: userId,
+  await TransactionModel.create({
+    car: carId,
+    seller: car.ownerId,
+    buyer: userId,
   });
 
   car.ownerId = Number(userId);

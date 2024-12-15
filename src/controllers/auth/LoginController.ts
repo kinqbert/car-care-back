@@ -21,7 +21,7 @@ export const LoginController: RequestHandler = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      res.status(400).json({ message: "Such user does not exist." });
+      res.status(403).json({ message: "Invalid email or password." });
       return;
     }
 
