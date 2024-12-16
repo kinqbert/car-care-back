@@ -7,6 +7,12 @@ import User from "../../models/UserModel";
 export const GetCarByIdController: RequestHandler = async (req, res) => {
   const carId = req.params.id;
 
+  if (!carId.match(/^[0-9a-fA-F]{24}$/)) {
+    ResponseService.error(res, "Car not found", 404);
+
+    return;
+  }
+
   const car = await CarModel.findById(carId);
 
   if (!car) {

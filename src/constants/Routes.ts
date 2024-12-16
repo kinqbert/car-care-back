@@ -6,12 +6,12 @@ export const ROUTES = {
   },
   CARS: {
     GET_ALL: "/api/cars",
-    GET_USER_CARS: "/api/user_cars",
+    GET_USER_CARS: "/api/cars/user",
     GET_CAR_BY_ID: "/api/cars/:id",
-    PURCHASE: "/api/:id/purchase",
-    SELL: "/api/:id/sell",
-    CANCEL_SELL: "/api/:id/cancel_sell",
-    REPAIR: "/api/:id/repair",
+    PURCHASE: "/api/cars/:id/purchase",
+    SELL: "/api/cars/:id/sell",
+    CANCEL_SELL: "/api/cars/:id/cancel_sell",
+    REPAIR: "/api/cars/:id/repair",
     CREATE: "/api/cars/create",
   },
   USER: {

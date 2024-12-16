@@ -3,9 +3,13 @@ import ResponseService from "../../services/ResponseService";
 import RepairModel from "../../models/RepairsModel";
 
 export const CreateRepairController: RequestHandler = async (req, res) => {
-  const repair = await RepairModel.create({
-    ...req.body,
-  });
+  try {
+    const repair = await RepairModel.create({
+      ...req.body,
+    });
 
-  ResponseService.success(res, repair);
+    ResponseService.success(res, repair);
+  } catch {
+    ResponseService.error(res, "validation failed", 400);
+  }
 };

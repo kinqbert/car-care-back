@@ -7,23 +7,33 @@ import { initDatabases } from "./loaders/initDatabases";
 import { authMiddleware } from "./middlewares/authMiddleware";
 import "dotenv/config";
 
-const app: Express = express();
+export const app: Express = express();
 
-const startServer = async () => {
-  const port = CONFIG.PORT;
-
+const initializeApp = async (isLoggerActive = true) => {
   app.use(cors());
-  app.use(morgan("tiny"));
+
+  if (isLoggerActive) {
+    app.use(morgan("tiny"));
+  }
+
   app.use(express.json());
   app.use(authMiddleware);
 
   routes(app);
 
   await initDatabases();
+};
 
-  app.listen(port, () => {
+export const startServer = async (
+  port = CONFIG.PORT,
+  isLoggerActive = true
+) => {
+  await initializeApp(isLoggerActive);
+  return app.listen(port, () => {
     console.log(`[*] Server is running at http://localhost:${port}`);
   });
 };
 
-startServer();
+if (require.main === module) {
+  startServer();
+}

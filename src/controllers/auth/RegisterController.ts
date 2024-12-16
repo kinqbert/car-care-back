@@ -24,14 +24,26 @@ export const RegisterController: RequestHandler = async (req, res) => {
     avatarUrl ||
     "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
-  const user = await User.create({
-    email,
-    name,
-    surname,
-    licenseNumber,
-    avatarUrl: userAvatar,
-    password: encryptedPassword,
-  });
+  const user = await User.create(
+    {
+      email,
+      name,
+      surname,
+      licenseNumber,
+      avatarUrl: userAvatar,
+      password: encryptedPassword,
+    },
+    { raw: true }
+  );
 
-  ResponseService.success(res, user, 200);
+  const userResponse = {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    surname: user.surname,
+    licenseNumber: user.licenseNumber,
+    avatarUrl: user.avatarUrl,
+  };
+
+  ResponseService.success(res, userResponse, 200);
 };

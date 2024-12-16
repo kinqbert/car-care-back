@@ -6,7 +6,7 @@ class ResponseService {
   }
   static error(res: Response, errorMsg: string, errorCode?: number) {
     return res.status(errorCode ?? 400).json({
-      error: errorMsg,
+      message: errorMsg,
     });
   }
 }

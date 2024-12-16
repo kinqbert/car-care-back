@@ -1,5 +1,4 @@
 import bcrypt from "bcryptjs";
-import User from "../models/UserModel";
 import CarModel from "../models/CarModel";
 import TransactionModel from "../models/TransactionModel";
 

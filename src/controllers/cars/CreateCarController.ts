@@ -12,5 +12,10 @@ export const CreateCarController: RequestHandler = async (req, res) => {
     ownerId: userId,
   });
 
-  ResponseService.success(res, car);
+  const carResponse = {
+    ...car.toObject(),
+    _id: car._id.toString(),
+  };
+
+  ResponseService.success(res, carResponse);
 };

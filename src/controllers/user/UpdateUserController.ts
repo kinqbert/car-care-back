@@ -7,6 +7,11 @@ export const UpdateUserController: RequestHandler = async (req, res) => {
   const userId = (req as UserRequest).userId;
   const { name, surname, licenseNumber, avatarUrl } = req.body;
 
+  if (!name || !surname || !licenseNumber || !avatarUrl) {
+    ResponseService.error(res, "Validation error", 400);
+    return;
+  }
+
   await User.update(
     { name, surname, licenseNumber, avatarUrl },
     { where: { id: userId } }
