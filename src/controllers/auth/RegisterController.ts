@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import ResponseService from "../../services/ResponseService";
-import User from "../../models/UserModel";
+import UserModel from "../../models/UserModel";
 import { hashPassword } from "../../services/UserServices";
 
 export const RegisterController: RequestHandler = async (req, res) => {
@@ -11,7 +11,7 @@ export const RegisterController: RequestHandler = async (req, res) => {
     return;
   }
 
-  const userExists = !!(await User.findOne({ where: { email } }));
+  const userExists = !!(await UserModel.findOne({ where: { email } }));
 
   if (userExists) {
     ResponseService.error(res, "User with such email already exists.", 400);
@@ -24,7 +24,7 @@ export const RegisterController: RequestHandler = async (req, res) => {
     avatarUrl ||
     "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
-  const user = await User.create(
+  const user = await UserModel.create(
     {
       email,
       name,

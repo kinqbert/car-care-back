@@ -9,7 +9,10 @@ export const GetUserCarsController: RequestHandler = async (req, res) => {
 
   const cars = await CarModel.find({ ownerId: userId });
   const carIds = cars.map((car) => car._id);
-  const damages = await DamageModel.find({ car: { $in: carIds } });
+  const damages = await DamageModel.find({
+    car: { $in: carIds },
+    isRepaired: false,
+  });
 
   const populatedCars = cars.map((car) => {
     return {

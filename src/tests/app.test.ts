@@ -1,6 +1,6 @@
 import request from "supertest";
 import { app } from "../app";
-import User from "../models/UserModel";
+import UserModel from "../models/UserModel";
 import { hashPassword } from "../services/UserServices";
 import CarModel from "../models/CarModel";
 import { generateAccessToken } from "../services/TokenServices";
@@ -58,7 +58,7 @@ describe("User Authentication Tests", () => {
     it("should return 400 if user already exists", async () => {
       // Pre-create a user
       const testPassword = await hashPassword("Password123!");
-      await User.create({
+      await UserModel.create({
         email: "existinguser@example.com",
         password: testPassword,
         name: "Existing",
@@ -88,7 +88,7 @@ describe("User Authentication Tests", () => {
   describe("POST /api/auth/login", () => {
     beforeAll(async () => {
       const testPassword = await hashPassword("MyTestPassword123!");
-      await User.create({
+      await UserModel.create({
         email: "test@example.com",
         password: testPassword,
         name: "Login",
@@ -283,10 +283,10 @@ describe("Car API Tests", () => {
 });
 
 describe("Repair API Tests", () => {
-  describe("POST /api/repairs/create", () => {
+  describe("POST /api/damage/create", () => {
     it("should create a new repair for a car", async () => {
       const response = await request(app)
-        .post("/api/repairs/create")
+        .post("/api/damage/create")
         .set("Authorization", `Bearer ${mockToken}`)
         .send({
           car: carId,
@@ -311,7 +311,7 @@ describe("Repair API Tests", () => {
 
     it("should return a 400 error for missing required fields", async () => {
       const response = await request(app)
-        .post("/api/repairs/create")
+        .post("/api/damage/create")
         .set("Authorization", `Bearer ${mockToken}`)
         .send({
           car: carId,
@@ -399,7 +399,10 @@ describe("User API Tests", () => {
       expect(response.body).toMatchObject(updatedData);
 
       // Verify the database was updated
-      const updatedUser = await User.findOne({ where: { id: 1 }, raw: true });
+      const updatedUser = await UserModel.findOne({
+        where: { id: 1 },
+        raw: true,
+      });
       expect(updatedUser).toMatchObject(updatedData);
     });
 

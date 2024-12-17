@@ -1,5 +1,5 @@
 import { comparePassword } from "../../services/UserServices";
-import User from "../../models/UserModel";
+import UserModel from "../../models/UserModel";
 import ResponseService from "../../services/ResponseService";
 import {
   generateAccessToken,
@@ -18,7 +18,7 @@ export const LoginController: RequestHandler = async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ where: { email } });
+    const user = await UserModel.findOne({ where: { email } });
 
     if (!user) {
       res.status(403).json({ message: "Invalid email or password." });

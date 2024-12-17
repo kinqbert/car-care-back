@@ -1,9 +1,9 @@
 import { RequestHandler } from "express";
 import ResponseService from "../../services/ResponseService";
-import User from "../../models/UserModel";
+import UserModel from "../../models/UserModel";
 
 export const GetUsersController: RequestHandler = async (req, res) => {
-  const users = await User.findAll({ raw: true });
+  const users = await UserModel.findAll({ raw: true });
 
   ResponseService.success(res, users);
 };

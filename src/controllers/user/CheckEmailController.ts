@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import ResponseService from "../../services/ResponseService";
-import User from "../../models/UserModel";
+import UserModel from "../../models/UserModel";
 
 export const CheckEmailController: RequestHandler = async (req, res) => {
   const { email } = req.body;
@@ -10,7 +10,7 @@ export const CheckEmailController: RequestHandler = async (req, res) => {
     return;
   }
 
-  const userExists = !!(await User.findOne({ where: { email } }));
+  const userExists = !!(await UserModel.findOne({ where: { email } }));
 
   if (userExists) {
     ResponseService.error(res, "User with such email already exists.", 400);

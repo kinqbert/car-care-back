@@ -6,6 +6,7 @@ export interface IDamage {
   shortDescription: string;
   description: string;
   severity: DamageSeverity;
+  isRepaired: boolean;
 }
 
 const DamageSchema = new Schema<IDamage>(
@@ -27,6 +28,10 @@ const DamageSchema = new Schema<IDamage>(
       type: String,
       required: true,
       enum: Object.values(DamageSeverity),
+    },
+    isRepaired: {
+      type: Boolean,
+      default: false,
     },
   },
   {

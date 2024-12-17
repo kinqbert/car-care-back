@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import ResponseService from "../../services/ResponseService";
-import User from "../../models/UserModel";
+import UserModel from "../../models/UserModel";
 import { UserRequest } from "../../types/Request";
 
 export const UpdateUserController: RequestHandler = async (req, res) => {
@@ -12,7 +12,7 @@ export const UpdateUserController: RequestHandler = async (req, res) => {
     return;
   }
 
-  await User.update(
+  await UserModel.update(
     { name, surname, licenseNumber, avatarUrl },
     { where: { id: userId } }
   );

@@ -13,7 +13,7 @@ interface UserAttributes {
 
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
-class User
+class UserModel
   extends Model<UserAttributes, UserCreationAttributes>
   implements UserAttributes
 {
@@ -29,7 +29,7 @@ class User
   public readonly updatedAt!: Date;
 }
 
-User.init(
+UserModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -68,4 +68,4 @@ User.init(
   }
 );
 
-export default User;
+export default UserModel;

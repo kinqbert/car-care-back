@@ -16,12 +16,12 @@ export const CancelSellCarController: RequestHandler = async (req, res) => {
   car.isPurchaseAvailable = false;
 
   const updatedCar = await car.save();
-  const damages = await DamageModel.find({ car: carId });
+  const damages = await DamageModel.find({ car: carId, isRepaired: false });
 
   const populatedCar = {
     ...updatedCar.toObject(),
     damages: damages,
   };
 
-  ResponseService.success(res, updatedCar);
+  ResponseService.success(res, populatedCar);
 };
