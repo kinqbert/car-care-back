@@ -4,6 +4,7 @@ import ResponseService from "../../services/ResponseService";
 import { UserRequest } from "../../types/Request";
 import TransactionModel from "../../models/TransactionModel";
 import DamageModel from "../../models/DamageModel";
+import RepairModel from "../../models/RepairModel";
 
 export const DeleteCarController: RequestHandler = async (req, res) => {
   const carId = req.params.id;
@@ -35,6 +36,7 @@ export const DeleteCarController: RequestHandler = async (req, res) => {
   await car.deleteOne();
   await TransactionModel.deleteMany({ car: carId });
   await DamageModel.deleteMany({ car: carId });
+  await RepairModel.deleteMany({ car: carId });
 
   ResponseService.success(res, {}, 204);
 };

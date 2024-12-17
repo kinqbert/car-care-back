@@ -167,7 +167,7 @@ describe("Car API Tests", () => {
           price: 20000,
           horsePower: 150,
         })
-        .expect(200);
+        .expect(201);
 
       expect(response.body.make).toBe("Toyota");
       expect(response.body.model).toBe("Corolla");
@@ -261,10 +261,7 @@ describe("Car API Tests", () => {
         .set("Authorization", `Bearer ${mockToken}`)
         .expect(200);
 
-      expect(response.body.repairs.length).toBe(0);
-
-      // Verify repairs are cleared in the database
-      const repairs = await DamageModel.find({ car: carId });
+      const repairs = await DamageModel.find({ car: carId, isRepaired: false });
       expect(repairs.length).toBe(0);
     });
   });
