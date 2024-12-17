@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import CONFIG from "../constants/config";
 import CarModel, { ICar } from "../models/CarModel";
-import RepairModel, { IRepair } from "../models/RepairsModel";
-import { RepairSeverity } from "../enums/RepairSeverity";
+import DamageModel, { IDamage } from "../models/DamageModel";
+import { DamageSeverity } from "../enums/DamageSeverity";
 
 const initialCarData: ICar[] = [
   {
@@ -55,24 +55,24 @@ const initialCarData: ICar[] = [
   },
 ];
 
-const initialRepairData: IRepair[] = [
+const initialDamageData: IDamage[] = [
   {
     car: "1",
     shortDescription: "Engine repair",
     description: "Engine repair due to overheating.",
-    severity: RepairSeverity.HIGH,
+    severity: DamageSeverity.HIGH,
   },
   {
     car: "2",
     shortDescription: "Brake repair",
     description: "Brake repair due to wear and tear.",
-    severity: RepairSeverity.HIGH,
+    severity: DamageSeverity.HIGH,
   },
   {
     car: "3",
     shortDescription: "Oil change",
     description: "Oil change due to oil leakage.",
-    severity: RepairSeverity.MEDIUM,
+    severity: DamageSeverity.MEDIUM,
   },
 ];
 
@@ -97,8 +97,8 @@ const uploadInitialCarData = async () => {
       const newCar = await CarModel.create(car);
 
       await Promise.allSettled(
-        initialRepairData.map(async (repair) => {
-          if (repair.car !== newCar._id.toString()) {
+        initialDamageData.map(async (damage) => {
+          if (damage.car !== newCar._id.toString()) {
             return;
           }
         })

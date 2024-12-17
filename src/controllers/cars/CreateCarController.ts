@@ -8,7 +8,6 @@ export const CreateCarController: RequestHandler = async (req, res) => {
 
   const car = await CarModel.create({
     ...req.body,
-    repairs: [],
     ownerId: userId,
   });
 
@@ -17,5 +16,5 @@ export const CreateCarController: RequestHandler = async (req, res) => {
     _id: car._id.toString(),
   };
 
-  ResponseService.success(res, carResponse);
+  ResponseService.success(res, carResponse, 201);
 };

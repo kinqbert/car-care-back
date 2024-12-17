@@ -5,7 +5,7 @@ import { hashPassword } from "../services/UserServices";
 import CarModel from "../models/CarModel";
 import { generateAccessToken } from "../services/TokenServices";
 import TransactionModel from "../models/TransactionModel";
-import RepairModel from "../models/RepairsModel";
+import DamageModel from "../models/DamageModel";
 
 let userId = 1;
 let carId: string;
@@ -249,7 +249,7 @@ describe("Car API Tests", () => {
   describe("PATCH /api/cars/:id/repair", () => {
     it("should repair a car and clear all repairs", async () => {
       // Add a repair to the car
-      await RepairModel.create({
+      await DamageModel.create({
         car: carId,
         description: "Engine repair",
         shortDescription: "Engine",
@@ -264,7 +264,7 @@ describe("Car API Tests", () => {
       expect(response.body.repairs.length).toBe(0);
 
       // Verify repairs are cleared in the database
-      const repairs = await RepairModel.find({ car: carId });
+      const repairs = await DamageModel.find({ car: carId });
       expect(repairs.length).toBe(0);
     });
   });
@@ -304,7 +304,7 @@ describe("Repair API Tests", () => {
       expect(response.body.severity).toBe("HIGH");
 
       // Validate database
-      const repair = await RepairModel.findById(response.body._id);
+      const repair = await DamageModel.findById(response.body._id);
       expect(repair).not.toBeNull();
       expect(repair?.description).toBe("Engine repair");
     });

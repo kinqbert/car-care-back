@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { ROUTES } from "../constants/routes";
-import { CreateRepairController } from "../controllers/repairs/CreateRepairController";
+import { CreateDamageController } from "../controllers/damages/CreateDamageController";
 
 export default () => {
   const route = Router();
 
-  route.post(ROUTES.REPAIRS.CREATE, CreateRepairController);
+  route.post(ROUTES.DAMAGE.CREATE, CreateDamageController);
 
   return route;
 };

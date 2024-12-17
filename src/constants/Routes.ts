@@ -12,6 +12,7 @@ export const ROUTES = {
     SELL: "/api/cars/:id/sell",
     CANCEL_SELL: "/api/cars/:id/cancel_sell",
     REPAIR: "/api/cars/:id/repair",
+    DELETE: "/api/cars/:id/delete",
     CREATE: "/api/cars/create",
   },
   USER: {
@@ -20,8 +21,8 @@ export const ROUTES = {
     CHECK_EMAIL: "/api/check_email",
     UPDATE: "/api/user/update",
   },
-  REPAIRS: {
-    CREATE: "/api/repairs/create",
+  DAMAGE: {
+    CREATE: "/api/damage/create",
   },
   TRANSACTIONS: {
     GET_ALL_TRASACTIONS: "/api/transactions",

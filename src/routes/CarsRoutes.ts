@@ -8,6 +8,7 @@ import { CancelSellCarController } from "../controllers/cars/CancelSellCarContro
 import { RepairCarController } from "../controllers/cars/RepairCarController";
 import { CreateCarController } from "../controllers/cars/CreateCarController";
 import { GetCarByIdController } from "../controllers/cars/GetCarByIdController";
+import { DeleteCarController } from "../controllers/cars/DeleteCarController";
 
 export default () => {
   const route = Router();
@@ -20,6 +21,7 @@ export default () => {
   route.patch(ROUTES.CARS.SELL, SellCarController);
   route.patch(ROUTES.CARS.CANCEL_SELL, CancelSellCarController);
   route.patch(ROUTES.CARS.REPAIR, RepairCarController);
+  route.delete(ROUTES.CARS.DELETE, DeleteCarController);
 
   return route;
 };

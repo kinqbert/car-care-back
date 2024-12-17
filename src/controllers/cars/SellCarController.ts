@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import CarModel from "../../models/CarModel";
 import ResponseService from "../../services/ResponseService";
-import RepairModel from "../../models/RepairsModel";
+import DamageModel from "../../models/DamageModel";
 
 export const SellCarController: RequestHandler = async (req, res) => {
   const carId = req.params["id"];
@@ -16,11 +16,11 @@ export const SellCarController: RequestHandler = async (req, res) => {
   car.isPurchaseAvailable = true;
 
   const updatedCar = await car.save();
-  const repairs = await RepairModel.find({ car: carId });
+  const damages = await DamageModel.find({ car: carId });
 
   const populatedCar = {
     ...updatedCar.toObject(),
-    repairs,
+    damages,
   };
 
   ResponseService.success(res, populatedCar);

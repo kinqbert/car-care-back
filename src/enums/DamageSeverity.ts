@@ -1,4 +1,4 @@
-export enum RepairSeverity {
+export enum DamageSeverity {
   HIGH = "HIGH",
   MEDIUM = "MEDIUM",
 }

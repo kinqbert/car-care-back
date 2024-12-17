@@ -1,14 +1,14 @@
 import { RequestHandler } from "express";
 import ResponseService from "../../services/ResponseService";
-import RepairModel from "../../models/RepairsModel";
+import DamageModel from "../../models/DamageModel";
 
-export const CreateRepairController: RequestHandler = async (req, res) => {
+export const CreateDamageController: RequestHandler = async (req, res) => {
   try {
-    const repair = await RepairModel.create({
+    const damage = await DamageModel.create({
       ...req.body,
     });
 
-    ResponseService.success(res, repair);
+    ResponseService.success(res, damage);
   } catch {
     ResponseService.error(res, "validation failed", 400);
   }
